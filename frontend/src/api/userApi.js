@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:5000/api/users";
+// 🔥 Render backend URL
+const API_URL = "https://bnv-task-backend.onrender.com/api/users";
 
 // GET users (pagination + search)
 export const getUsers = (page = 1, limit = 5, search = "") => {

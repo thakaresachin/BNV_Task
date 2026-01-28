@@ -10,12 +10,14 @@ dotenv.config();
 
 const app = express();
 
-// ✅ CORS middleware
+// ✅ CORS (local + production)
 app.use(
   cors({
-    origin: "http://localhost:5173", // frontend Vite URL
+    origin: [
+      "http://localhost:5173",              // local frontend
+      "https://bnv-task-frontend.netlify.app" // 🔁 replace with YOUR frontend URL
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
   })
 );
 
@@ -25,7 +27,7 @@ app.use(express.json());
 // Routes
 app.use("/api/users", userRoutes);
 
-// Error handling (LAST middleware)
+// Error handling (ALWAYS last)
 app.use(errorMiddleware);
 
 // DB connect
