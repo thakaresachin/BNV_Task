@@ -7,15 +7,16 @@ import errorMiddleware from "./middlewares/errorMiddleware.js";
 import connectDB from "./config/db.js";
 
 dotenv.config();
+connectDB(); // ✅ FIRST
 
 const app = express();
 
-// ✅ CORS (local + production)
+// ✅ CORS
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",              // local frontend
-      "https://bnv-task-frontend.netlify.app" // 🔁 replace with YOUR frontend URL
+      "http://localhost:5173",
+      "https://bnv-task-frontend.onrender.com",
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
@@ -27,13 +28,9 @@ app.use(express.json());
 // Routes
 app.use("/api/users", userRoutes);
 
-// Error handling (ALWAYS last)
+// Error handler (LAST)
 app.use(errorMiddleware);
 
-// DB connect
-connectDB();
-
-// Server start
 const PORT = process.env.PORT || 6000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
